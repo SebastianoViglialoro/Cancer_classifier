@@ -1,3 +1,3 @@
 # Cancer_classifier
 
-Yes i'm peppioi, GRAAIE peppe
+Yes i'm peppioi, GRAAIE
