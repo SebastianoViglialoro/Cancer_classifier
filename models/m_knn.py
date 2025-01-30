@@ -29,3 +29,15 @@ class KNNClassifier:
                 predictions.append(prediction)
             
             return np.array(predictions)
+    
+    @staticmethod
+    def evaluate(y_true, y_pred):
+        accuracy = np.mean(y_true == y_pred)
+        tp = sum((y_true == 1) & (y_pred == 1))
+        fn = sum((y_true == 1) & (y_pred == 0))
+        tn = sum((y_true == 0) & (y_pred == 0))
+        fp = sum((y_true == 0) & (y_pred == 1))
+        
+        sensitivity = tp / (tp + fn) if (tp + fn) > 0 else 0
+        specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
+        return accuracy, sensitivity, specificity
