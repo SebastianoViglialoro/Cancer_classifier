@@ -9,7 +9,7 @@ class Fileimporter(ABC):
     def importer(self, file_path: str) -> pd.DataFrame:
         pass
 
-#CSV ---
+#CSV
 class FileCSV(Fileimporter):
     """
     Questa classe implementa l'import per File CSV
@@ -20,7 +20,7 @@ class FileCSV(Fileimporter):
         #rimuovere duplicati?
         return df 
 
-#EXCEL --- 
+#Excel
 class FileExcel(Fileimporter):
     """
     Questa classe implementa l'import per File Excel
@@ -31,7 +31,7 @@ class FileExcel(Fileimporter):
         #rimuovere duplicati?
         return df 
 
-#TSV --- 
+#TSV
 class FileTSV(Fileimporter):
     """
     Questa classe implementa l'import per File TSV
@@ -41,8 +41,8 @@ class FileTSV(Fileimporter):
         df = pd.read_csv(file_path)
         #rimuovere duplicati?
         return df 
-    
-#TXT --- 
+
+#TXT
 class FileTXT(Fileimporter):
     """
     Questa classe implementa l'import per File TXT
@@ -53,7 +53,7 @@ class FileTXT(Fileimporter):
         #rimuovere duplicati?
         return df 
 
-#JSON ---
+#JSON
 class FileJSON(Fileimporter):
     """
     Questa classe implementa l'import per File JSON
@@ -64,7 +64,7 @@ class FileJSON(Fileimporter):
         #rimuovere duplicati?
         return df 
 
-
+#Permette di selezionare il metodo di import in base al tipo di file dell'utente
 class SelectionFile:
     """
     Questa classe seleziona il tipo di file da importare
