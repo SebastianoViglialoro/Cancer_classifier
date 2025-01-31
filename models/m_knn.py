@@ -41,3 +41,22 @@ class KNNClassifier:
         sensitivity = tp / (tp + fn) if (tp + fn) > 0 else 0
         specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
         return accuracy, sensitivity, specificity
+            
+    def k_fold_cross_validation(self, X, y):
+        fold_size = len(X) // self.num_folds
+        accuracies, sensitivities, specificities = [], [], []
+        
+        for i in range(self.num_folds):
+            start, end = i * fold_size, (i + 1) * fold_size
+            X_test, y_test = X[start:end], y[start:end]
+            X_train = np.vstack((X[:start], X[end:]))
+            y_train = np.concatenate((y[:start], y[end:]))
+            
+            y_pred = self.classify(X_train, y_train, X_test)
+            accuracy, sensitivity, specificity = self.evaluate(y_test, y_pred)
+            
+            accuracies.append(accuracy)
+            sensitivities.append(sensitivity)
+            specificities.append(specificity)
+        
+        return np.mean(accuracies), np.mean(sensitivities), np.mean(specificities)
