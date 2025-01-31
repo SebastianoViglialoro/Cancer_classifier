@@ -30,6 +30,7 @@ class KNNClassifier:
             
             return np.array(predictions)
     
+    
     @staticmethod
     def evaluate(y_true, y_pred):
         accuracy = np.mean(y_true == y_pred)
