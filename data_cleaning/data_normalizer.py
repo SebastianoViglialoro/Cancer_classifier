@@ -44,3 +44,16 @@ class StandardNormalizer:
                 std_val = data[column].std()
                 data_normalized[column] = (data[column] - mean_val) / std_val
         return data_normalized
+    
+class SelectNormalizer:
+    """
+    Questa classe seleziona il tipo di normalizzazione da applicare ai dati
+    """
+    @staticmethod
+    def get_normalizer(normalizer: str, data: pd.DataFrame, exclude_col: list) -> MinMaxNormalizer:
+        if normalizer == 'normalizzazione min-max':
+            return MinMaxNormalizer.normalize(data, exclude_col)
+        if normalizer == 'standardizzazione':
+            return StandardNormalizer.standardize(data, exclude_col)
+        else:
+            raise ValueError("Normalizzazione non supportata. Usare 'minmax' o 'standard'")
