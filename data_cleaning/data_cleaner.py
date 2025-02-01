@@ -73,7 +73,7 @@ class GestioneValMancanti:
         elif mode == "mediana":
             return ValoriMancanti.sostituisci_con_mediana(data)  
         else:
-            raise ValueError("Modalità non supportata. Usare una modalità tra: ['rimozione', 'media', 'moda', 'deviazione_standard']")  
+            raise ValueError("Modalità non supportata. Usare una modalità tra: ['rimozione', 'media', 'moda', 'mediana']")  
 
 
 
