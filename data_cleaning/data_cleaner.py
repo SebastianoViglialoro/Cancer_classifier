@@ -56,7 +56,7 @@ class GestioneValMancanti:
     """
 
     @staticmethod
-    def get_mode (mode: str, data: pd.DataFrame) -> pd.DataFrame:
+    def get_mode(mode: str, data: pd.DataFrame) -> pd.DataFrame:
         """
         Funzione per gestire i valori nulli di un DataFrame
         """
