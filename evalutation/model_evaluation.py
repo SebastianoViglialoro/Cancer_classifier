@@ -15,7 +15,6 @@ class ModelEvaluation:
         self.num_folds = num_folds
         self.save_results = save_results
 
-
     # Calcolo delle Metriche di Valutazione
     # Questo metodo valuta il modello restituendo metriche chiave:
     # - Accuracy
