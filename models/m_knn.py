@@ -2,6 +2,23 @@ import numpy as np
 import pandas as pd
 import random
 from collections import Counter
+from abc import ABC, abstractmethod
+
+class Classifier(ABC):
+    """
+    Classe astratta per un generico classificatore, così da avere più scalabilità e genericità possibile.
+    I metodi fit e predict sono metodi astratti, così da obbligare alla classi derivata da "Classifier" a
+    implementarli
+    """
+    @abstractmethod
+    def fit(self, X, y):
+        """Metodo per addestrare il modello."""
+        pass
+    
+    @abstractmethod
+    def predict(self, X_test):
+        """Metodo per fare previsioni."""
+        pass
 
 class KNNClassifier:
     def __init__(self, k=3, num_folds=5):
