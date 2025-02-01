@@ -23,3 +23,24 @@ class MinMaxNormalizer:
                 data_normalized[column] = (data[column] - min_val) / (max_val - min_val)
         return data_normalized
     
+class StandardNormalizer:
+    """
+    Questa classe permette di normalizzare i dati in un DataFrame utilizzando la standardizzazione (z-score)
+    """
+    @staticmethod
+    def standardize(data: pd.DataFrame, exclude_col: list) -> pd.DataFrame:
+        """
+        Normalizza i dati, nel range [0,1], in un DataFrame utilizzando la formula:
+        x = (x - mean) / std
+        """
+        #definisco le colonne da normalizzare
+        if exclude_col is None:
+            exclude_col = []
+
+        data_normalized = data.copy()
+        for column in data.columns:
+            if column not in exclude_col and pd.api.types.is_numeric_dtype(data[column]):
+                mean_val = data[column].mean()
+                std_val = data[column].std()
+                data_normalized[column] = (data[column] - mean_val) / std_val
+        return data_normalized
