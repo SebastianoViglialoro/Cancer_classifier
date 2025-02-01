@@ -35,7 +35,7 @@ class ValoriMancanti:
         """
         Sostituisce i valori mancanti con la media della colonna.
         """
-        return data.fillna(data.mean())
+        return data.fillna(data.mean(numeric_only=True))
 
     @staticmethod
     def sostituisci_con_moda(data: pd.DataFrame) -> pd.DataFrame:
