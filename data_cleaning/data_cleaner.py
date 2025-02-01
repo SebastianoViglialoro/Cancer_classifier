@@ -49,6 +49,31 @@ class ValoriMancanti:
         Sostituisce i valori mancanti con la deviazione standard della colonna.
         """
         return data.fillna(data.median())
+    
+class GestioneValMancanti:
+    """
+    Questa Classe permette di gestire i valori mancanti in un DataFrame a seconda di una modalità scelta dall'utente
+    """
+
+    @staticmethod
+    def gestione_val_null (mode: str, data: pd.DataFrame) -> pd.DataFrame:
+        """
+        Funzione per gestire i valori nulli di un DataFrame
+        """
+        data = RimuoviDuplicati.dup_remove(data)
+
+        data = ValoriMancanti.rimuovi_righe_classtype_v1(data)
+
+        if mode == "rimozione":
+            return ValoriMancanti.rimuovi_righe_con_nan(data)
+        elif mode == "media":
+            return ValoriMancanti.sostituisci_con_media(data)
+        elif mode == "moda":
+            return ValoriMancanti.sostituisci_con_moda(data)
+        elif mode == "mediana":
+            return ValoriMancanti.sostituisci_con_mediana(data)  
+        else:
+            raise ValueError("⚠️ Modalità non supportata. Usare una modalità tra: ['rimozione', 'media', 'moda', 'deviazione_standard']")  
 
 
 
