@@ -29,6 +29,7 @@ class ModelEvaluation:
         :param y: Etichette.
         :param num_folds: Numero di fold per la validazione incrociata.
         :return: Media di accuratezza, sensibilità e specificità.
+        
         """
         fold_size = len(X) // num_folds
         accuracies, sensitivities, specificities = [], [], []
