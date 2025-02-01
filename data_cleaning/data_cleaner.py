@@ -56,7 +56,7 @@ class GestioneValMancanti:
     """
 
     @staticmethod
-    def gestione_val_null (mode: str, data: pd.DataFrame) -> pd.DataFrame:
+    def get_mode (mode: str, data: pd.DataFrame) -> pd.DataFrame:
         """
         Funzione per gestire i valori nulli di un DataFrame
         """
@@ -73,7 +73,7 @@ class GestioneValMancanti:
         elif mode == "mediana":
             return ValoriMancanti.sostituisci_con_mediana(data)  
         else:
-            raise ValueError("⚠️ Modalità non supportata. Usare una modalità tra: ['rimozione', 'media', 'moda', 'deviazione_standard']")  
+            raise ValueError("Modalità non supportata. Usare una modalità tra: ['rimozione', 'media', 'moda', 'deviazione_standard']")  
 
 
 
