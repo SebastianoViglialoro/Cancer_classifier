@@ -44,7 +44,7 @@ class KNNClassifier(Classifier):
     def _predict_single(self, x):
         """Effettua una previsione per un singolo punto usando la distanza euclidea."""
         # Calcola la distanza euclidea tra x e tutti i punti del training set
-        distances = np.linalg.norm(self.X_train - x, axis=1)
+        distances = np.linalg.norm(self.X_train-x, axis=1) #QUI DA UN ERORRE PERCHè NON HA ANCORA I DATI PROCESSATI
         
         # Trova gli indici dei k vicini più vicini andando a prendere i primi k elementi dell'array k_indices
         k_indices = np.argsort(distances)[:self.k]
@@ -62,3 +62,31 @@ class KNNClassifier(Classifier):
             prediction = most_common[0][0]
         
         return prediction
+    
+if __name__ == "__main__":
+    # Caricamento e preparazione del dataset
+    df = pd.read_csv("data/version_1.csv")
+    
+    # Separazione delle feature e delle etichette
+    X = df.iloc[:, :-1].values  # Tutte le colonne eccetto l'ultima
+    y = df.iloc[:, -1].values   # L'ultima colonna è la classe
+    
+    # Suddivisione dei dati in training (80%) e test (20%)
+    split_ratio = 0.8
+    split_index = int(len(X) * split_ratio)
+    X_train, X_test = X[:split_index], X[split_index:]
+    y_train, y_test = y[:split_index], y[split_index:]
+    
+    # Chiedere all'utente il valore di k
+    k = int(input("Inserisci il numero di vicini (k) per il classificatore k-NN: "))
+    
+    # Creazione e addestramento del modello k-NN con il valore di k scelto dall'utente
+    knn = KNNClassifier(k=k)
+    knn.fit(X_train, y_train)
+    
+    # Previsione delle classi per il test set
+    y_pred = knn.predict(X_test)
+    
+    # Calcolo dell'accuratezza del modello
+    accuracy = np.mean(y_pred == y_test) * 100
+    print(f"Accuratezza del modello k-NN: {accuracy:.2f}%")
