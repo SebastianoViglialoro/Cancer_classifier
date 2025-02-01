@@ -3,7 +3,7 @@ import pandas as pd
 
 class Fileimporter(ABC):
     """
-    Abstract class for importing data from different file formats
+    Classe astratta per l'importazione di dati da diversi formati di file    
     """
     @abstractmethod
     def importer(self, file_path: str) -> pd.DataFrame:
@@ -83,4 +83,4 @@ class SelectionFile:
         elif file_path.endswith('.json'):
             return FileJSON()
         else:
-            raise ValueError("Formato file non supportato, usare un file [.csv, .xlsx, .tsv, .txt, .json]")
+            raise ValueError("Formato file non supportato, usare un file con estenzione [.csv, .xlsx, .tsv, .txt, .json]")
