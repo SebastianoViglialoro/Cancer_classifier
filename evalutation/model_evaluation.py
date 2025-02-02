@@ -75,6 +75,8 @@ class ModelEvaluation:
         fold_size = len(self.X) // self.num_folds #Dimensione di ogni fold
         remainder = len(self.X) % self.num_folds #Numero di elementi extra
         results = []
+        all_y_true = []
+        all_y_pred = []
 
         for i in range(self.num_folds):
             start = i * fold_size + min(i, remainder) #Determina l'inizio del fold di test
@@ -90,8 +92,16 @@ class ModelEvaluation:
             metrics = self.evaluate(y_test, y_pred)
             metrics["fold"] = i + 1 #Questo viene messo all'inizio automaticamente da pandas perchè viene aggiunto separatamente
             results.append(metrics)
+
+            # Salviamo le predizioni di tutti i folds
+            all_y_true.extend(y_test)
+            all_y_pred.extend(y_pred)
         
         results_df = pd.DataFrame(results)
+
+        # Dopo aver raccolto tutti i risultati, generiamo i grafici complessivi
+        plot_confusion_matrix(np.array(all_y_true), np.array(all_y_pred))
+        plot_auc(np.array(all_y_true), np.array(all_y_pred))
 
         if self.save_results: #Se save_result è true allora salva i risultati in un file CSV
             results_df.to_csv("../results/validation_results.csv", index=False)
