@@ -63,30 +63,30 @@ class KNNClassifier(Classifier):
         
         return prediction
     
-if __name__ == "__main__":
-    # Caricamento e preparazione del dataset
-    df = pd.read_csv("data/version_1.csv")
+# if __name__ == "__main__":
+#     # Caricamento e preparazione del dataset
+#     df = pd.read_csv("data/version_1.csv")
     
-    # Separazione delle feature e delle etichette
-    X = df.iloc[:, :-1].values  # Tutte le colonne eccetto l'ultima
-    y = df.iloc[:, -1].values   # L'ultima colonna è la classe
+#     # Separazione delle feature e delle etichette
+#     X = df.iloc[:, :-1].values  # Tutte le colonne eccetto l'ultima
+#     y = df.iloc[:, -1].values   # L'ultima colonna è la classe
     
-    # Suddivisione dei dati in training (80%) e test (20%)
-    split_ratio = 0.8
-    split_index = int(len(X) * split_ratio)
-    X_train, X_test = X[:split_index], X[split_index:]
-    y_train, y_test = y[:split_index], y[split_index:]
+#     # Suddivisione dei dati in training (80%) e test (20%)
+#     split_ratio = 0.8
+#     split_index = int(len(X) * split_ratio)
+#     X_train, X_test = X[:split_index], X[split_index:]
+#     y_train, y_test = y[:split_index], y[split_index:]
     
-    # Chiedere all'utente il valore di k
-    k = int(input("Inserisci il numero di vicini (k) per il classificatore k-NN: "))
+#     # Chiedere all'utente il valore di k
+#     k = int(input("Inserisci il numero di vicini (k) per il classificatore k-NN: "))
     
-    # Creazione e addestramento del modello k-NN con il valore di k scelto dall'utente
-    knn = KNNClassifier(k=k)
-    knn.fit(X_train, y_train)
+#     # Creazione e addestramento del modello k-NN con il valore di k scelto dall'utente
+#     knn = KNNClassifier(k=k)
+#     knn.fit(X_train, y_train)
     
-    # Previsione delle classi per il test set
-    y_pred = knn.predict(X_test)
+#     # Previsione delle classi per il test set
+#     y_pred = knn.predict(X_test)
     
-    # Calcolo dell'accuratezza del modello
-    accuracy = np.mean(y_pred == y_test) * 100
-    print(f"Accuratezza del modello k-NN: {accuracy:.2f}%")
+#     # Calcolo dell'accuratezza del modello
+#     accuracy = np.mean(y_pred == y_test) * 100
+#     print(f"Accuratezza del modello k-NN: {accuracy:.2f}%")
