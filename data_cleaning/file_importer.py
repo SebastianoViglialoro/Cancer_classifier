@@ -16,8 +16,7 @@ class FileCSV(Fileimporter):
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_csv(file_path)
-        #rimuovere duplicati?
+        df = pd.read_csv(file_path) #sfruttando il path che verrà inserito importiamo il file
         return df 
 
 #Excel
@@ -27,8 +26,7 @@ class FileExcel(Fileimporter):
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_excel(file_path)
-        #rimuovere duplicati?
+        df = pd.read_excel(file_path) #sfruttando il path che verrà inserito importiamo il file
         return df 
 
 #TSV
@@ -38,8 +36,7 @@ class FileTSV(Fileimporter):
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_csv(file_path)
-        #rimuovere duplicati?
+        df = pd.read_csv(file_path) #sfruttando il path che verrà inserito importiamo il file
         return df 
 
 #TXT
@@ -49,8 +46,7 @@ class FileTXT(Fileimporter):
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_csv(file_path)
-        #rimuovere duplicati?
+        df = pd.read_csv(file_path) #sfruttando il path che verrà inserito importiamo il file
         return df 
 
 #JSON
@@ -60,8 +56,7 @@ class FileJSON(Fileimporter):
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_json(file_path)
-        #rimuovere duplicati?
+        df = pd.read_json(file_path) #sfruttando il path che verrà inserito importiamo il file
         return df 
 
 #Permette di selezionare il metodo di import in base al tipo di file dell'utente
