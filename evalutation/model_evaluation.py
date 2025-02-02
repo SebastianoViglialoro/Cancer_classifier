@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+from visualization import plot_confusion_matrix, plot_auc  # Importiamo le funzioni di visualizzazione
 
 # Questa classe si occupa della valutazione di un modello di classificazione.
 # Include metriche di valutazione, validazione incrociata e strumenti di analisi visiva.
