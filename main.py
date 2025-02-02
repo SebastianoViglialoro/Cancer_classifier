@@ -44,3 +44,6 @@ def main():
     print("Dati dopo la gestione dei valori mancanti:")
     print(data.head()) #mostra le prime 5 righe del dataset dopo la gestione dei valori mancanti
     print(f"\n Controllo se il dataset contiene ancora valori nulli nella colonna: {data.isnull().sum()}")
+
+    # 2.5: Salvataggio del dataset pulito nella cartella data/cleaned
+    SaveDB.save_dataset(data)
