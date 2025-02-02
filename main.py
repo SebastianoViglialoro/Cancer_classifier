@@ -7,6 +7,7 @@ def main():
     # 1: Input dell'utente per l'import del file
     ok = False
     while not ok:
+        print("DEBUG: Sto chiedendo l'input...")
         file_path = input("Inserisci il percorso del file del dataset di analisi: ").strip()
         if not file_path:
             print("Il percorso non può essere vuoto. Riprova.")
