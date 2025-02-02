@@ -3,6 +3,7 @@ import pandas as pd
 from data_cleaning import SelectionFile, GestioneValMancanti, SaveDB
 from data_cleaning import SelectNormalizer, SaveNormDB
 from models import KNNClassifier
+from evalutation import ModelEvaluation
 
 def main():
     # 1: Input dell'utente per l'import del file
@@ -86,6 +87,13 @@ def main():
         except ValueError as e:
             print(f"Errore: {e}. Riprova.")
     classifier = KNNClassifier(k=k)
+
+    # Esecuzione della validazione K-Fold
+    num_folds = int(input("Inserisci il numero di folds per la K-Fold cross validation: "))
+    evaluator = ModelEvaluation(classifier, X, y, num_folds=num_folds)
+    results_df = evaluator.k_fold_cross_validation()
+    results_df.to_csv("results/k-fold/k_fold_results.csv", index=False)
+    print("\n Risultati della validazione K-Fold salvati in results/k-fold/k_fold_results.csv")
 
 
 if __name__ == "__main__":
