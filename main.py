@@ -2,6 +2,7 @@ import os
 import pandas as pd
 from data_cleaning import SelectionFile, GestioneValMancanti, SaveDB
 from data_cleaning import SelectNormalizer, SaveNormDB
+from models import m_knn
 
 def main():
     # 1: Input dell'utente per l'import del file
@@ -44,3 +45,23 @@ def main():
     print("Dati dopo la gestione dei valori mancanti:")
     print(data.head()) #mostra le prime 5 righe del dataset dopo la gestione dei valori mancanti
     print(f"\n Controllo se il dataset contiene ancora valori nulli nella colonna: {data.isnull().sum()}")
+
+
+    # Separazione feature (X) e target (y)
+    X = data.iloc[:, :-1].values  # Tutte le colonne tranne l'ultima
+    y = data.iloc[:, -1].values   # Ultima colonna come etichette
+
+    # Scelta dei parametri del modello knn
+    while True:
+        try:
+            k = int(input("Inserisci il numero di vicini (k) per il classificatore k-NN: "))
+            if k <= 0:
+                raise ValueError("k deve essere un numero intero positivo.")
+            break
+        except ValueError as e:
+            print(f"Errore: {e}. Riprova.")
+    classifier = m_knn.KNNClassifier(k=k)
+
+
+if __name__ == "__main__":
+    main()
