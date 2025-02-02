@@ -57,7 +57,7 @@ class StandardNormalizer:
         Normalizza i dati, nel range [0,1], in un DataFrame utilizzando la formula:
         x = (x - mean) / std
         """
-        #definisco le colonne da normalizzare
+        #definisco le colonne da normalizzare se non ci sono colonne escluse
         if exclude_col is None:
             exclude_col = []
 
