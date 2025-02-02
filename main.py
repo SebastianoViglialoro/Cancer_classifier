@@ -49,7 +49,26 @@ def main():
 
     # Salvataggio del dataset pulito nella cartella data/cleaned
     SaveDB.save_dataset(data)
+    
+    # 3: Normalizzazione dei dati
+    print("Scegliere come normalizzare i dati attraverso le funzioni sviluppate.")
+    print("Modalità disponibili: ['normalizzazione min-max', 'standardizzazione']")
+    norm_mode = input("Inserisci la modalità di gestione dei valori mancanti che vuoi usare: ").strip().lower()
 
+    if norm_mode not in ['normalizzazione min-max', 'standardizzazione']: #se la modalità non è supportata, termina l'esecuzione
+        print("Modalità non supportata. Verrà utilizzata la modalità di default: normalizzazione min-max")
+        norm_mode = 'normalizzazione min-max'
+    
+    data_scaled = None
+    exclude_col = ['Sample code number','classtype_v1'] #escludiamo le colonna target e la colonna dei campioni(rappresentano l'id del campione)
+    try:
+        data_scaled= SelectNormalizer.get_normalizer(norm_mode, data, exclude_col)
+    except Exception as e:
+        print(f"Errore durante la gestione dei valori mancanti: {e}. Procedo con i dati originali.")
+        data_scaled = data
+    
+    print("Dati dopo la normalizzazione:")
+    print(data_scaled.head())
 
     # Separazione feature (X) e target (y)
     X = data.iloc[:, :-1].values  # Tutte le colonne tranne l'ultima
