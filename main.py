@@ -49,7 +49,7 @@ def main():
 
     # Salvataggio del dataset pulito nella cartella data/cleaned
     SaveDB.save_dataset(data)
-    
+
     # 3: Normalizzazione dei dati
     print("Scegliere come normalizzare i dati attraverso le funzioni sviluppate.")
     print("Modalità disponibili: ['normalizzazione min-max', 'standardizzazione']")
@@ -69,6 +69,9 @@ def main():
     
     print("Dati dopo la normalizzazione:")
     print(data_scaled.head())
+
+    # 3.5: Salvataggio del dataset normalizzato nella cartella data/normalized
+    SaveNormDB.save_dataset(data_scaled)
 
     # Separazione feature (X) e target (y)
     X = data.iloc[:, :-1].values  # Tutte le colonne tranne l'ultima
