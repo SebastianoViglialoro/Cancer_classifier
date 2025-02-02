@@ -2,13 +2,12 @@ import os
 import pandas as pd
 from data_cleaning import SelectionFile, GestioneValMancanti, SaveDB
 from data_cleaning import SelectNormalizer, SaveNormDB
-from models import m_knn
+from models import KNNClassifier
 
 def main():
     # 1: Input dell'utente per l'import del file
     ok = False
     while not ok:
-        print("DEBUG: Sto chiedendo l'input...")
         file_path = input("Inserisci il percorso del file del dataset di analisi: ").strip()
         if not file_path:
             print("Il percorso non può essere vuoto. Riprova.")
@@ -86,7 +85,7 @@ def main():
             break
         except ValueError as e:
             print(f"Errore: {e}. Riprova.")
-    classifier = m_knn.KNNClassifier(k=k)
+    classifier = KNNClassifier(k=k)
 
 
 if __name__ == "__main__":
