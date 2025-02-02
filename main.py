@@ -46,6 +46,9 @@ def main():
     print(data.head()) #mostra le prime 5 righe del dataset dopo la gestione dei valori mancanti
     print(f"\n Controllo se il dataset contiene ancora valori nulli nella colonna: {data.isnull().sum()}")
 
+    # Salvataggio del dataset pulito nella cartella data/cleaned
+    SaveDB.save_dataset(data)
+
 
     # Separazione feature (X) e target (y)
     X = data.iloc[:, :-1].values  # Tutte le colonne tranne l'ultima
