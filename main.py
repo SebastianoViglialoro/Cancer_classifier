@@ -3,7 +3,7 @@ import pandas as pd
 from data_cleaning import SelectionFile, GestioneValMancanti, SaveDB
 from data_cleaning import SelectNormalizer, SaveNormDB
 from models import KNNClassifier
-from evalutation import ModelEvaluation
+from evaluation import ModelEvaluation
 
 def main():
     # 1: Input dell'utente per l'import del file
