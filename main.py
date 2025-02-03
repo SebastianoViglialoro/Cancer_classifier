@@ -2,8 +2,9 @@ import os
 import pandas as pd
 from data_cleaning import SelectionFile, GestioneValMancanti, DataCleaner
 from data_cleaning import SelectNormalizer, SaveNormDB
-from models import KNNClassifier
-from evaluation import ModelEvaluation
+from models.model_management import Modelling
+from evaluation.model_evalutation import Validation
+from utils import input_valid_int
 
 def main():
     #Input dell'utente per l'import del file
@@ -42,27 +43,27 @@ def main():
     #Salvataggio del dataset normalizzato nella cartella data/normalized
     SaveNormDB.save_dataset(data_scaled)
 
-    # Separazione feature (X) e target (y)
-    X = data_scaled.drop(columns=['classtype_v1'])  # Tutte le colonne tranne l'ultima
-    y = data_scaled['classtype_v1']   # Ultima colonna come etichette
+    #Separazione feature (X) e target (y)
+    X = data_scaled.drop(columns=['classtype_v1']).values  # Feature
+    y = data_scaled['classtype_v1'].values   # Etichette
 
-    # Scelta dei parametri del modello knn
-    while True:
-        try:
-            k = int(input("Inserisci il numero di vicini (k) per il classificatore k-NN: "))
-            if k <= 0:
-                raise ValueError("k deve essere un numero intero positivo.")
-            break
-        except ValueError as e:
-            print(f"Errore: {e}. Riprova.")
-    classifier = KNNClassifier(k=k)
+    #Scelta del numero di vicini k
+    k = input_valid_int("Inserisci il numero di vicini (k) per il classificatore k-NN: ", min_value=1)
 
-    # Esecuzione della validazione K-Fold
-    num_folds = int(input("Inserisci il numero di folds per la K-Fold cross validation: "))
-    evaluator = ModelEvaluation(classifier, X, y, num_folds=num_folds)
-    results_df = evaluator.k_fold_cross_validation()
+    #Creazione del modello k-NN tramite Modelling
+    model_m = Modelling(model_type="knn", k=k)
+
+    #Scelta del numero di folds per K-Fold Cross Validation
+    num_folds = input_valid_int("Inserisci il numero di folds per la K-Fold cross validation: ", min_value=2)
+
+    #Creazione dell'istanza di Validation
+    validator = Validation(model=model_m, X=X, y=y, num_folds=num_folds)
+
+    #Esecuzione della validazione K-Fold e salvataggio risultati
+    results_df = validator.k_fold_cross_validation()
     results_df.to_csv("results/k-fold/k_fold_results.csv", index=False)
-    print("\n Risultati della validazione K-Fold salvati in results/k-fold/k_fold_results.csv")
+    print("\nRisultati della validazione K-Fold salvati in results/k-fold/k_fold_results.csv")
+
 
 
 if __name__ == "__main__":
