@@ -33,11 +33,33 @@ Cancer Classifier - k-NN
   
   3. Assicurati che il dataset sia presente
 
+
+- Installazione per Mac
+
+    1. Genera un token di accesso personale (PAT):
+
+    Vai su GitHub → Settings → Developer settings → Personal access tokens e crea un nuovo token con i permessi per repo.
+
+    2. Configura Git con il token imposta il tuo nome utente ed email:
+
+    `git config --global user.name "IlTuoNomeUtente"`
+    `git config --global user.email "laTuaEmail@esempio.com"`
+
+    `git remote set-url origin https://<TOKEN>@github.com/tuo-username/Cancer_classifier.git`
+
+    3. Esegui il primo push con il token:
+
+    `git add .`
+    `git commit -m "Primo commit con token"`
+    `git push origin main`
+
+
+
 Il dataset deve essere posizionato nella cartella data/.
 Se non è presente, scaricalo e posizionalo come segue:
 
-📂 Cancer_classifier/
- ├── 📂 data/
+[+] Cancer_classifier/
+ ├── [+] data/
  │    ├── version_1.csv  → (Dataset da utilizzare)  
 
 -Esecuzione
@@ -45,7 +67,7 @@ Per avviare il classificatore, eseguire:
 
 python main.py
 
-Il progr amma chiederà:
+Il programma chiederà:
     *Il percorso del dataset
     *Come gestire i valori mancanti
     *Come normalizzare i dati
@@ -58,7 +80,7 @@ Una volta completata l’esecuzione, il modello verrà valutato e saranno genera
 
 I risultati della validazione vengono salvati nella cartella:
 
-📂 results/k-fold/
+[+] results/k-fold/
  ├── k_fold_results.csv → Contiene i risultati della validazione K-Fold
 
 -Analisi dei risultati
@@ -70,23 +92,20 @@ Al termine dell'esecuzione, il codice genera grafici di valutazione:
 
 -Struttura del Progetto
 
-📂 Cancer_classifier/
- ├── 📂 data_cleaning/         # Preprocessing e gestione dati
+[+] Cancer_classifier/
+ ├── [+] data_cleaning/         # Preprocessing e gestione dati
  │    ├── file_loader.py
  │    ├── data_cleaning.py
  │    ├── normalizzazione.py
- ├── 📂 models/                # Modello k-NN
+ ├── [+] models/                # Modello k-NN
  │    ├── m_knn.py
- ├── 📂 evaluation/             # Valutazione e grafici
+ ├── [+] evaluation/             # Valutazione e grafici
  │    ├── **init**.py
  │    ├── model_evaluation.py
  │    ├── visualization.py
- ├── 📂 results/                # Risultati delle validazioni
+ ├── [+] results/                # Risultati delle validazioni
  │    ├── k-fold/
  │    │    ├── k_fold_results.csv
  ├── README.md                 # Documentazione del progetto
  ├── requirements.txt          # Dipendenze del progetto
  ├── main.py                   # Script principale
-
-
-
