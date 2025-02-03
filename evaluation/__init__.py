@@ -1,2 +1,2 @@
-from .model_evaluation import ModelEvaluation
+from .metrics_evaluation_model import ModelEvaluation
 from .visualization import plot_confusion_matrix, plot_auc
