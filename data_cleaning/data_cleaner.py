@@ -99,3 +99,34 @@ class GestioneValMancanti:
             return ValoriMancanti.sostituisci_con_mediana(data)  
         else:
             raise ValueError("Modalità non supportata. Usare una modalità tra: ['rimozione', 'media', 'moda', 'mediana']")  
+        
+class DataCleaner:
+    """
+    Classe per gestire i valori mancanti e salvare il dataset pulito.
+    """
+    @staticmethod
+    def clean_and_save(data: pd.DataFrame):
+        """
+        Chiede all'utente la modalità di gestione dei valori mancanti,
+        applica la pulizia e salva il dataset.
+        """
+        print("Scegliere come gestire i valori mancanti attraverso le modalità sviluppate.")
+        print("Modalità disponibili: ['rimozione', 'media', 'moda', 'mediana']")
+        mode = input("Inserisci la modalità di gestione dei valori mancanti che vuoi usare: ").strip().lower()
+
+        if mode not in ['rimozione', 'media', 'moda', 'mediana']:  # Modalità di default: 'media'
+            print("Modalità non supportata. Verrà utilizzata la modalità di default: media")
+            mode = 'media'
+        
+        try:
+            data = GestioneValMancanti.get_mode(mode, data)  # Applica la pulizia
+        except Exception as e:
+            print(f"Errore durante la gestione dei valori mancanti: {e}. Procedo con i dati originali.")
+
+        print("Dati dopo la gestione dei valori mancanti:")
+        print(data.head())  # Mostra le prime 5 righe del dataset dopo la gestione
+        print(f"\nControllo se il dataset contiene ancora valori nulli:\n{data.isnull().sum()}")
+
+        # Salvataggio del dataset pulito
+        SaveDB.save_dataset(data)
+        print("Dataset pulito salvato correttamente in 'data/cleaned'.")
