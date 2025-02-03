@@ -3,73 +3,72 @@ import pandas as pd
 
 class Fileimporter(ABC):
     """
-    Classe astratta per l'importazione di dati da diversi formati di file    
+    Abstract class for importing data from different file formats
     """
     @abstractmethod
     def importer(self, file_path: str) -> pd.DataFrame:
         pass
-
-#CSV
+    
+#CSV ---
 class FileCSV(Fileimporter):
     """
     Questa classe implementa l'import per File CSV
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_csv(file_path) #sfruttando il path che verrà inserito importiamo il file
+        df = pd.read_csv(file_path)
         return df 
 
-#Excel
+#EXCEL --- 
 class FileExcel(Fileimporter):
     """
     Questa classe implementa l'import per File Excel
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_excel(file_path) #sfruttando il path che verrà inserito importiamo il file
+        df = pd.read_excel(file_path)
         return df 
 
-#TSV
+#TSV --- 
 class FileTSV(Fileimporter):
     """
     Questa classe implementa l'import per File TSV
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_csv(file_path) #sfruttando il path che verrà inserito importiamo il file
+        df = pd.read_csv(file_path)
         return df 
-
-#TXT
+    
+#TXT --- 
 class FileTXT(Fileimporter):
     """
     Questa classe implementa l'import per File TXT
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_csv(file_path) #sfruttando il path che verrà inserito importiamo il file
+        df = pd.read_csv(file_path)
         return df 
 
-#JSON
+#JSON ---
 class FileJSON(Fileimporter):
     """
     Questa classe implementa l'import per File JSON
     """
     def importer(self, file_path: str) -> pd.DataFrame:
         print(f"Import del file: {file_path}")
-        df = pd.read_json(file_path) #sfruttando il path che verrà inserito importiamo il file
+        df = pd.read_json(file_path)
         return df 
 
-#Permette di selezionare il metodo di import in base al tipo di file dell'utente
+
 class SelectionFile:
     """
-    Questa classe seleziona il tipo di file da importare
+    Gestisce la selezione e l'importazione dei file in base all'estensione.
     """
     @staticmethod
-
-    def get_file(file_path: str) -> Fileimporter:
+    def get_importer(file_path: str) -> Fileimporter:
         if file_path.endswith('.csv'):
             return FileCSV()
-        elif file_path.endswith('.xlsx'):
+        elif file_path.endswith(('.xlsx', '.xls')):
             return FileExcel()
         elif file_path.endswith('.tsv'):
             return FileTSV()
@@ -78,4 +77,26 @@ class SelectionFile:
         elif file_path.endswith('.json'):
             return FileJSON()
         else:
-            raise ValueError("Formato file non supportato, usare un file con estenzione [.csv, .xlsx, .tsv, .txt, .json]")
+            raise ValueError("Formato file non supportato. Usa uno di questi formati: [.csv, .xlsx, .tsv, .txt, .json]")
+
+    @staticmethod
+    def import_data() -> pd.DataFrame:
+        """
+        Richiede all'utente di inserire il percorso del file e gestisce eventuali errori di importazione.
+        """
+        ok = False
+        while not ok:
+            file_path = input("Inserisci il percorso del file del dataset di analisi: ").strip()
+
+            if not file_path:
+                print("Il percorso non può essere vuoto. Riprova.")
+                continue
+
+            try:
+                importer = SelectionFile.get_importer(file_path)
+                data = importer.importer(file_path)
+                print("Importazione completata con successo!")
+                return data  # Uscita dal ciclo se l'importazione ha successo
+            except Exception as e:
+                print(f"Errore durante l'import del file: {e}")
+                print("Riprova inserendo un percorso valido.")
