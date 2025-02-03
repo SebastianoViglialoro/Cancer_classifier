@@ -55,15 +55,14 @@ Cancer Classifier - k-NN
 
 
 
-Il dataset deve essere posizionato nella cartella data/.
-Se non è presente, scaricalo e posizionalo come segue:
+Il dataset è posizionato nella cartella data/.
 
 [+] Cancer_classifier/
  ├── [+] data/
  │    ├── version_1.csv  → (Dataset da utilizzare)  
 
 -Esecuzione
-Per avviare il classificatore, eseguire:
+Per avviare il classificatore:
 
 python main.py
 
@@ -86,8 +85,8 @@ I risultati della validazione vengono salvati nella cartella:
 -Analisi dei risultati
 
 Al termine dell'esecuzione, il codice genera grafici di valutazione:
-    *Matrice di Confusione → Mostra il numero di predizioni corrette ed errate.
-    *Curva ROC-AUC → Valuta la capacità del modello nel distinguere le classi.
+    * Matrice di Confusione → Mostra il numero di predizioni corrette ed errate.
+    * Curva ROC-AUC → Valuta la capacità del modello nel distinguere le classi.
 
 
 -Struttura del Progetto
