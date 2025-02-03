@@ -3,7 +3,13 @@ Cancer Classifier - k-NN
 ---------------------------------------------------------
 
 -Descrizione
-  Questo progetto implementa un classificatore di tumori basato su k-Nearest Neighbors (k-NN) con validazione K-Fold. Il modello viene addestrato su dati normalizzati e puliti, e al termine della validazione genera grafici di analisi, come la matrice di confusione e la curva ROC-AUC.
+
+La classificazione delle cellule tumorali è essenziale per una diagnosi accurata e tempestiva. Esse si suddividono in due categorie principali: benigne, che rimangono circoscritte e non invadono altri tessuti, e maligne, caratterizzate da una crescita incontrollata con capacità di metastatizzare. L’analisi morfologica e biologica di queste cellule, attraverso parametri come la forma, le dimensioni e la struttura nucleare, consente di distinguerle e di supportare le decisioni cliniche.  
+
+Questo progetto ha lo scopo di sviluppare un modello di intelligenza artificiale per classificare le cellule tumorali, basandosi sul k-Nearest Neighbors (k-NN). L'algoritmo opera su un dataset opportunamente trattato, garantendo la pulizia e la normalizzazione dei dati per migliorare l'affidabilità delle previsioni. Per assicurare una valutazione solida del modello, vengono adottate strategie di validazione incrociata, tra cui il metodo K-Fold, che consente di stimare con precisione le prestazioni del classificatore.  
+
+Il sistema offre un alto grado di personalizzazione, permettendo agli utenti di scegliere diversi parametri, come la gestione dei dati mancanti, il metodo di normalizzazione e il numero di vicini da considerare. Alla fine del processo, vengono prodotti report dettagliati e rappresentazioni grafiche, tra cui la matrice di confusione e la curva ROC-AUC, strumenti fondamentali per valutare l’efficacia del modello e il suo potenziale utilizzo in ambito medico.
+
 
 - Approccio adottato:
 
@@ -18,6 +24,7 @@ Cancer Classifier - k-NN
   - **Visualizzazione**: Generazione automatica della matrice di confusione e della curva ROC-AUC per l’analisi della performance del modello.
 
   - **Abbiamo evitato l’uso di librerie preconfezionate per il machine learning, implementando manualmente i metodi di classificazione e validazione**.
+  
 
 - Installazione
    
