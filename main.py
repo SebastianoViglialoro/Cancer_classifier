@@ -1,6 +1,6 @@
 import os 
 import pandas as pd
-from data_cleaning import SelectionFile, GestioneValMancanti, SaveDB
+from data_cleaning import SelectionFile, GestioneValMancanti, DataCleaner
 from data_cleaning import SelectNormalizer, SaveNormDB
 from models import KNNClassifier
 from evaluation import ModelEvaluation
@@ -17,25 +17,7 @@ def main():
     print(data.head()) #mostra le prime 5 righe del dataset
 
     #All'utente viene posto di scegliere come gestire i valori mancanti
-    print("Scegliere come gestire i valori mancanti attraverso le modalità sviluppate.")
-    print("Modalità disponibili: ['rimozione', 'media', 'moda', 'mediana']")
-    mode = input("Inserisci la modalità di gestione dei valori mancanti che vuoi usare: ").strip().lower()
-
-    if mode not in ['rimozione', 'media', 'moda', 'mediana']: #se la modalità non è supportata, viene utilizzata la modalità di default: media
-        print("Modalità non supportata. Verrà utilizzata la modalità di default: media")
-        mode = 'media'
-    
-    try:
-        data = GestioneValMancanti.get_mode(mode, data) #richiamo i metodi per la gestione dei valori mancanti
-    except Exception as e:
-        print(f"Errore durante la gestione dei valori mancanti: {e}. Procedo con i dati originali.")
-
-    print("Dati dopo la gestione dei valori mancanti:")
-    print(data.head()) #mostra le prime 5 righe del dataset dopo la gestione dei valori mancanti
-    print(f"\n Controllo se il dataset contiene ancora valori nulli nella colonna: {data.isnull().sum()}")
-
-    #Salvataggio del dataset pulito nella cartella data/cleaned
-    SaveDB.save_dataset(data)
+    DataCleaner.clean_and_save(data)  # Pulisce i dati e salva il dataset
 
     #Normalizzazione dei dati
     print("Scegliere come normalizzare i dati attraverso le funzioni sviluppate.")
