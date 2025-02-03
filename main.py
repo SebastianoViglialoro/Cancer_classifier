@@ -74,8 +74,8 @@ def main():
     SaveNormDB.save_dataset(data_scaled)
 
     # Separazione feature (X) e target (y)
-    X = data.iloc[:, :-1].values  # Tutte le colonne tranne l'ultima
-    y = data.iloc[:, -1].values   # Ultima colonna come etichette
+    X = data_scaled.drop(columns=['classtype_v1'])  # Tutte le colonne tranne l'ultima
+    y = data_scaled['classtype_v1']   # Ultima colonna come etichette
 
     # Scelta dei parametri del modello knn
     while True:
