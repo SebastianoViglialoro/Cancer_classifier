@@ -17,7 +17,7 @@ def main():
     print(data.head()) #mostra le prime 5 righe del dataset
 
     #All'utente viene posto di scegliere come gestire i valori mancanti
-    DataCleaner.clean_and_save(data)  # Pulisce i dati e salva il dataset
+    cleaned_data = DataCleaner.clean_and_save(data)  # Pulisce i dati e salva il dataset
 
     #Normalizzazione dei dati
     print("Scegliere come normalizzare i dati attraverso le funzioni sviluppate.")
@@ -31,7 +31,7 @@ def main():
     data_scaled = None
     exclude_col = ['Sample code number','classtype_v1'] #escludiamo le colonna target e la colonna dei campioni(rappresentano l'id del campione)
     try:
-        data_scaled= SelectNormalizer.get_normalizer(norm_mode, data, exclude_col)
+        data_scaled= SelectNormalizer.get_normalizer(norm_mode, cleaned_data, exclude_col)
     except Exception as e:
         print(f"Errore durante la gestione dei valori mancanti: {e}. Procedo con i dati originali.")
         data_scaled = data
