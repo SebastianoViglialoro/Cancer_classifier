@@ -6,7 +6,7 @@ from models import KNNClassifier
 from evaluation import ModelEvaluation
 
 def main():
-    # 1: Input dell'utente per l'import del file
+    #Input dell'utente per l'import del file
     ok = False
     while not ok:
         file_path = input("Inserisci il percorso del file del dataset di analisi: ").strip()
@@ -29,7 +29,7 @@ def main():
     print("Dati originali:")
     print(data.head()) #mostra le prime 5 righe del dataset
 
-    # 2: All'utente viene posto di scegliere come gestire i valori mancanti
+    #All'utente viene posto di scegliere come gestire i valori mancanti
     print("Scegliere come gestire i valori mancanti attraverso le modalità sviluppate.")
     print("Modalità disponibili: ['rimozione', 'media', 'moda', 'mediana']")
     mode = input("Inserisci la modalità di gestione dei valori mancanti che vuoi usare: ").strip().lower()
@@ -47,10 +47,10 @@ def main():
     print(data.head()) #mostra le prime 5 righe del dataset dopo la gestione dei valori mancanti
     print(f"\n Controllo se il dataset contiene ancora valori nulli nella colonna: {data.isnull().sum()}")
 
-    # Salvataggio del dataset pulito nella cartella data/cleaned
+    #Salvataggio del dataset pulito nella cartella data/cleaned
     SaveDB.save_dataset(data)
 
-    # 3: Normalizzazione dei dati
+    #Normalizzazione dei dati
     print("Scegliere come normalizzare i dati attraverso le funzioni sviluppate.")
     print("Modalità disponibili: ['normalizzazione min-max', 'standardizzazione']")
     norm_mode = input("Inserisci la modalità di gestione dei valori mancanti che vuoi usare: ").strip().lower()
@@ -70,7 +70,7 @@ def main():
     print("Dati dopo la normalizzazione:")
     print(data_scaled.head())
 
-    # 3.5: Salvataggio del dataset normalizzato nella cartella data/normalized
+    #Salvataggio del dataset normalizzato nella cartella data/normalized
     SaveNormDB.save_dataset(data_scaled)
 
     # Separazione feature (X) e target (y)
