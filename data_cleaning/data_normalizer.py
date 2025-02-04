@@ -22,8 +22,68 @@ class MinMaxNormalizer:
                 max_val = data[column].max()
                 data_normalized[column] = (data[column] - min_val) / (max_val - min_val)
         return data_normalized
+    
+class StandardNormalizer:
+    """
+    Questa classe permette di normalizzare i dati in un DataFrame utilizzando la standardizzazione (z-score)
+    """
+    @staticmethod
+    def standardize(data: pd.DataFrame, exclude_col: list) -> pd.DataFrame:
+        """
+        Normalizza i dati, nel range [0,1], in un DataFrame utilizzando la formula:
+        x = (x - mean) / std
+        """
+        #definisco le colonne da normalizzare
+        if exclude_col is None:
+            exclude_col = []
 
-class SaveNormDB:
+        data_normalized = data.copy()
+        for column in data.columns:
+            if column not in exclude_col and pd.api.types.is_numeric_dtype(data[column]):
+                mean_val = data[column].mean()
+                std_val = data[column].std()
+                data_normalized[column] = (data[column] - mean_val) / std_val
+        return data_normalized
+
+class Preprocessing:
+    """
+    Classe per gestire il preprocessing dei dati:
+    - Normalizzazione (Min-Max o Standardizzazione)
+    - Salvataggio del dataset normalizzato
+    - Separazione delle feature dal target
+    """
+    @staticmethod
+    def choose_normalization_method():
+        """
+        Chiede all'utente di scegliere il metodo di normalizzazione.
+        """
+        print("Scegli come normalizzare i dati:")
+        print("Modalità disponibili: ['normalizzazione min-max', 'standardizzazione']")
+        method = input("Inserisci la modalità di normalizzazione: ").strip().lower()
+
+        if method not in ['normalizzazione min-max', 'standardizzazione']:
+            print("Modalità non supportata. Verrà utilizzata la modalità di default: normalizzazione min-max.")
+            method = 'normalizzazione min-max'
+        
+        return method
+
+    @staticmethod
+    def get_normalizer(data: pd.DataFrame, exclude_col: list) -> pd.DataFrame:
+        """
+        Normalizza i dati utilizzando Min-Max o Standardizzazione (Z-score).
+        """
+        method = Preprocessing.choose_normalization_method()
+
+        if exclude_col is None:
+            exclude_col = []
+
+        if method == 'normalizzazione min-max':
+            return MinMaxNormalizer.normalize(data, exclude_col)
+        if method == 'standardizzazione':
+            return StandardNormalizer.standardize(data, exclude_col)
+        else:
+            raise ValueError("Normalizzazione non supportata. Usare 'minmax' o 'standard'")
+        
     @staticmethod
     def save_dataset(data: pd.DataFrame):
         save_option = input("\nVuoi salvare il dataset normalizzato? (s/n): ").strip().lower()
@@ -47,37 +107,14 @@ class SaveNormDB:
             data.to_csv(absolute_path, index=False)
             print(f"Dataset pulito salvato in: {absolute_path}")
 
-class StandardNormalizer:
-    """
-    Questa classe permette di normalizzare i dati in un DataFrame utilizzando la standardizzazione (z-score)
-    """
     @staticmethod
-    def standardize(data: pd.DataFrame, exclude_col: list) -> pd.DataFrame:
+    def split_features_target(data: pd.DataFrame, target_col: str):
         """
-        Normalizza i dati, nel range [0,1], in un DataFrame utilizzando la formula:
-        x = (x - mean) / std
+        Separa le features dalla colonna target.
         """
-        #definisco le colonne da normalizzare se non ci sono colonne escluse
-        if exclude_col is None:
-            exclude_col = []
-
-        data_normalized = data.copy()
-        for column in data.columns:
-            if column not in exclude_col and pd.api.types.is_numeric_dtype(data[column]):
-                mean_val = data[column].mean()
-                std_val = data[column].std()
-                data_normalized[column] = (data[column] - mean_val) / std_val
-        return data_normalized
-    
-class SelectNormalizer:
-    """
-    Questa classe seleziona il tipo di normalizzazione da applicare ai dati
-    """
-    @staticmethod
-    def get_normalizer(normalizer: str, data: pd.DataFrame, exclude_col: list) -> MinMaxNormalizer:
-        if normalizer == 'normalizzazione min-max':
-            return MinMaxNormalizer.normalize(data, exclude_col)
-        if normalizer == 'standardizzazione':
-            return StandardNormalizer.standardize(data, exclude_col)
-        else:
-            raise ValueError("Normalizzazione non supportata. Usare 'minmax' o 'standard'")
+        if target_col not in data.columns:
+            raise ValueError(f"La colonna target '{target_col}' non è presente nel dataset.")
+        
+        X = data.drop(columns=[target_col])
+        y = data[target_col]
+        return X, y
