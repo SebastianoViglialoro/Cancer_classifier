@@ -1,117 +1,136 @@
----------------------------------------------------------
-Cancer Classifier - k-NN
----------------------------------------------------------
+# Cancer Classifier
 
-- Descrizione: 
-  
-  La classificazione delle cellule tumorali è essenziale per una diagnosi accurata e tempestiva. Esse si suddividono in due categorie principali: benigne, che rimangono circoscritte e non invadono altri tessuti, e maligne, caratterizzate da una crescita incontrollata con capacità di metastatizzare. L’analisi morfologica e biologica di queste cellule, attraverso parametri come la forma, le dimensioni e la struttura nucleare, consente di distinguerle e di supportare le decisioni cliniche.  
-  
-  Questo progetto ha lo scopo di sviluppare un modello di intelligenza artificiale per classificare le cellule tumorali, basandosi sul k-Nearest Neighbors (k-NN). L'algoritmo opera su un dataset opportunamente trattato, garantendo la pulizia e la normalizzazione dei dati per migliorare l'affidabilità delle previsioni. Per assicurare una valutazione solida del modello, vengono adottate strategie di validazione incrociata, tra cui il metodo K-Fold, che consente di stimare con precisione le prestazioni del classificatore.  
-  
-  Il sistema offre un alto grado di personalizzazione, permettendo agli utenti di scegliere diversi parametri, come la gestione dei dati mancanti, il metodo di normalizzazione e il numero di vicini da considerare. Alla fine del processo, vengono prodotti report dettagliati e rappresentazioni grafiche, tra cui la matrice di confusione e la curva ROC-AUC, strumenti fondamentali per valutare l’efficacia del modello e il suo potenziale utilizzo in ambito medico.
+## Descrizione
+La classificazione delle cellule tumorali è essenziale per una diagnosi accurata e tempestiva. Esse si suddividono in due categorie principali:
+- **Benigne**: rimangono circoscritte e non invadono altri tessuti.
+- **Maligne**: caratterizzate da una crescita incontrollata con capacità di metastatizzare.
 
+L’analisi morfologica e biologica di queste cellule, basata su parametri come forma, dimensioni e struttura nucleare, consente di distinguerle e supportare le decisioni cliniche.
 
-- Approccio adottato:
+Questo progetto mira a sviluppare un modello di **Intelligenza Artificiale** per classificare le cellule tumorali utilizzando l'algoritmo **k-Nearest Neighbors (k-NN)**. Il dataset è sottoposto a processi di pulizia e normalizzazione per migliorare l'affidabilità delle previsioni. Per garantire una valutazione solida del modello, viene utilizzata la **validazione incrociata K-Fold**, permettendo una stima più accurata delle prestazioni.
 
-  Abbiamo implementato il progetto seguendo un'architettura modulare e scalabile, suddividendo il codice in diverse componenti:
+Il sistema è altamente personalizzabile, offrendo agli utenti la possibilità di scegliere:
+- Il metodo di gestione dei valori mancanti.
+- La tecnica di normalizzazione.
+- Il numero di vicini **k**.
+- Il numero di fold per la validazione K-Fold.
 
-  - **Preprocessing dei dati**: Gestione dei valori mancanti e normalizzazione dei dati.
+Al termine dell’analisi, il modello produce **report dettagliati** e **rappresentazioni grafiche**, tra cui la **matrice di confusione** e la **curva ROC-AUC**, strumenti fondamentali per valutare l’efficacia della classificazione e il potenziale utilizzo in ambito medico.
 
-  - **Modellizzazione**: Implementazione del modello k-NN senza l'uso di Scikit-Learn, per comprendere a fondo l'algoritmo.
+---
+## Approccio adottato
+Il progetto è stato sviluppato seguendo un'architettura **modulare e scalabile**, con il codice suddiviso in diverse componenti:
 
-  - **Validazione**: Utilizzo di K-Fold Cross Validation per garantire una valutazione robusta delle prestazioni del modello.
+### **1. Preprocessing dei dati**
+- Gestione dei valori mancanti.
+- Normalizzazione dei dati per garantire uniformità.
 
-  - **Visualizzazione**: Generazione automatica della matrice di confusione e della curva ROC-AUC per l’analisi della performance del modello.
+### **2. Modellizzazione**
+- Implementazione dell'algoritmo **k-NN** **senza l’uso di Scikit-Learn**, per una comprensione approfondita del funzionamento.
 
-  - **Abbiamo evitato l’uso di librerie preconfezionate per il machine learning, implementando manualmente i metodi di classificazione e validazione**.
-  
+### **3. Validazione**
+- Utilizzo della **K-Fold Cross Validation** per una valutazione robusta delle prestazioni del modello.
 
-- Installazione
-   
-   1️. Clona il repository: 
+### **4. Visualizzazione dei risultati**
+- Generazione automatica di **grafici di analisi**, tra cui:
+  - **Matrice di confusione** → Per valutare la precisione del modello.
+  - **Curva ROC-AUC** → Per analizzare la capacità di distinzione tra classi.
 
-    `git clone https://github.com/tuo-username/Cancer_classifier.git`
+Abbiamo evitato l’uso di librerie preconfezionate per il machine learning, implementando manualmente i metodi di classificazione e validazione per comprendere meglio ogni fase del processo.
 
-    `cd Cancer_classifier`
+---
+## Installazione
+### 1️ Clona il repository
+```sh
+git clone https://github.com/tuo-username/Cancer_classifier.git
+cd Cancer_classifier
+```
 
-  2️. Installa le dipendenze
+### 2️ Installa le dipendenze
+```sh
+pip install -r requirements.txt
+```
 
-    `pip install -r requirements.txt`
-  
-  3. Assicurati che il dataset sia presente
-
-
-- Installazione per Mac
-
-    1. Genera un token di accesso personale (PAT):
-
-    Vai su GitHub → Settings → Developer settings → Personal access tokens e crea un nuovo token con i permessi per repo.
-
-    2. Configura Git con il token imposta il tuo nome utente ed email:
-
-    `git config --global user.name "IlTuoNomeUtente"`
-    `git config --global user.email "laTuaEmail@esempio.com"`
-
-    `git remote set-url origin https://<TOKEN>@github.com/tuo-username/Cancer_classifier.git`
-
-    3. Esegui il primo push con il token:
-
-    `git add .`
-    `git commit -m "Primo commit con token"`
-    `git push origin main`
-
-
-
-Il dataset è posizionato nella cartella data/.
-
+### 3️ Assicurati che il dataset sia presente
+Il dataset deve trovarsi nella cartella **data/**:
+```
 [+] Cancer_classifier/
- ├── [+] data/
- │    ├── version_1.csv  → (Dataset da utilizzare)  
+│── [+] data/
+│   ├── version_1.csv → (Dataset da utilizzare)
+```
 
--Esecuzione
-Per avviare il classificatore:
+### Installazione su Mac
+1. **Genera un token di accesso personale (PAT):**  
+   Vai su **GitHub → Settings → Developer settings → Personal access tokens** e crea un nuovo token con permessi per il repository.
 
+2. **Configura Git con il token:**
+```sh
+git config --global user.name "IlTuoNomeUtente"
+git config --global user.email "laTuaEmail@esempio.com"
+git remote set-url origin https://<TOKEN>@github.com/tuo-username/Cancer_classifier.git
+```
+
+3. **Esegui il primo push con il token:**
+```sh
+git add .
+git commit -m "Primo commit con token"
+git push origin main
+```
+
+---
+## Esecuzione
+Per avviare il classificatore, eseguire:
+```sh
 python main.py
+```
+Il programma richiederà di specificare:
+-  **Percorso del dataset**
+-  **Gestione dei valori mancanti**
+-  **Metodo di normalizzazione**
+-  **Numero di vicini k**
+-  **Numero di fold per la validazione K-Fold**
 
-Il programma chiederà:
-    *Il percorso del dataset
-    *Come gestire i valori mancanti
-    *Come normalizzare i dati
-    *Il numero di vicini k
-    *Il numero di fold per la K-Fold Cross Validation
+Al termine dell’esecuzione, verranno prodotti **risultati dettagliati** e **grafici di valutazione**.
 
-Una volta completata l’esecuzione, il modello verrà valutato e saranno generati i grafici di analisi.
-
--Output e Risultati
-
+---
+##  Output e Risultati
 I risultati della validazione vengono salvati nella cartella:
-
+```
 [+] results/k-fold/
- ├── k_fold_results.csv → Contiene i risultati della validazione K-Fold
+│── k_fold_results.csv → Contiene i risultati della validazione K-Fold
+```
 
--Analisi dei risultati
+Al termine dell'esecuzione, il codice genera **grafici di valutazione**:
+- **Matrice di Confusione** → Mostra il numero di predizioni corrette ed errate.
+- **Curva ROC-AUC** → Valuta la capacità del modello nel distinguere le classi.
 
-Al termine dell'esecuzione, il codice genera grafici di valutazione:
-    * Matrice di Confusione → Mostra il numero di predizioni corrette ed errate.
-    * Curva ROC-AUC → Valuta la capacità del modello nel distinguere le classi.
-
-
--Struttura del Progetto
-
+---
+## Struttura del Progetto
+```
 [+] Cancer_classifier/
- ├── [+] data_cleaning/         # Preprocessing e gestione dati
- │    ├── file_loader.py
- │    ├── data_cleaning.py
- │    ├── normalizzazione.py
- ├── [+] models/                # Modello k-NN
- │    ├── m_knn.py
- ├── [+] evaluation/             # Valutazione e grafici
- │    ├── **init**.py
- │    ├── model_evaluation.py
- │    ├── visualization.py
- ├── [+] results/                # Risultati delle validazioni
- │    ├── k-fold/
- │    │    ├── k_fold_results.csv
- ├── README.md                 # Documentazione del progetto
- ├── requirements.txt          # Dipendenze del progetto
- ├── main.py                   # Script principale
+│── [+] data_cleaning/    # Preprocessing e gestione dati
+│   ├── file_loader.py
+│   ├── data_cleaning.py
+│   ├── normalizzazione.py
+│── [+] models/           # Modello k-NN
+│   ├── m_knn.py
+│── [+] evaluation/       # Valutazione e grafici
+│   ├── __init__.py
+│   ├── model_evaluation.py
+│   ├── visualization.py
+│── [+] results/          # Risultati delle validazioni
+│   ├── k-fold/
+│   │   ├── k_fold_results.csv
+│── README.md             # Documentazione del progetto
+│── requirements.txt       # Dipendenze del progetto
+│── main.py               # Script principale
+```
+
+---
+## Conclusioni
+Questo progetto rappresenta un passo importante verso l'integrazione dell'Intelligenza Artificiale nell’analisi delle cellule tumorali. Grazie a un'implementazione manuale del k-NN, alla validazione rigorosa e agli strumenti di visualizzazione, il modello offre una base solida per applicazioni mediche e di ricerca.
+
+Per miglioramenti futuri, si potrebbe valutare l'integrazione di algoritmi più avanzati come **SVM, Random Forest o reti neurali**.
+
+**Per domande o suggerimenti:** contattaci via GitHub!
+
