@@ -110,25 +110,31 @@ Al termine dell'esecuzione, il codice genera **grafici di valutazione**:
 [+] Cancer_classifier/
 │── [+] data/             # Importazione del CSV
 │   ├── version_1.csv
+
 │── [+] data_cleaning/    # Preprocessing e gestione dati
 │   ├── __init__.py
 │   ├── data_cleaner.py
 │   ├── data_normalizer.py
 │   ├── file_importer.py
+
 │── [+] evaluation/       # Valutazione e grafici
 │   ├── __init__.py
 │   ├── metrics_evaluation.py
 │   ├── model_evaluation.py
 │   ├── visualization.py
+
 │── [+] models/           # Modello k-NN
 │   ├── __init__.py
 │   ├── m_knn.py
 │   ├── model_management.py
+
 │── [+] utils/ 
 │   ├── input_valid_int.py
+
 │── [+] results/          # Risultati delle validazioni
 │   ├── k-fold/
 │   │   ├── k_fold_results.csv
+
 │── README.md             # Documentazione del progetto
 │── requirements.txt      # Dipendenze del progetto
 │── project_setup.py      # Task affiliate al gruppo 8
