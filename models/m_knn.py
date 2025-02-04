@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 class Classifier(ABC):
     
     # Classe astratta per un generico classificatore, così da avere più scalabilità e genericità possibile.
-    # I metodi fit e predict sono metodi astratti, così da obbligare alla classi derivata da "Classifier" a
+    # I metodi fit e predict sono metodi astratti, così da obbligare alle classi derivate da "Classifier" a
     # implementarli
     
     @abstractmethod
@@ -20,7 +20,7 @@ class Classifier(ABC):
         #Metodo per fare previsioni.
         pass
 
-class KNNClassifier(Classifier):
+class KNNClassifier:
 
     #Implementazione del classificatore k-NN (k-Nearest Neighbors) da zero.
     

@@ -1,7 +1,10 @@
 import numpy as np
 import pandas as pd
-from evaluation.metrics_evaluation_model import ModelEvaluationMetrics  # Importiamo la classe con le metriche
-from evaluation.visualization import plot_confusion_matrix, plot_auc
+from models import KNNClassifier
+from models import Modelling
+from metrics_evaluation_model import ModelEvaluationMetrics
+from visualization import plot_auc, plot_confusion_matrix
+
 
 class Validation:
     """
