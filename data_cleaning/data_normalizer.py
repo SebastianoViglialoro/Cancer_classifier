@@ -106,7 +106,8 @@ class Preprocessing:
             # Salva il file
             data.to_csv(absolute_path, index=False)
             print(f"Dataset pulito salvato in: {absolute_path}")
-
+        return data
+    
     @staticmethod
     def split_features_target(data: pd.DataFrame, target_col: str):
         """
