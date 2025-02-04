@@ -2,8 +2,8 @@ import os
 import pandas as pd
 from data_cleaning import SelectionFile, GestioneValMancanti, DataCleaner
 from data_cleaning import SelectNormalizer, SaveNormDB
-from models.model_management import Modelling
-from evaluation.model_evalutation import Validation
+from models import Modelling
+from evaluation import Validation
 from utils import input_valid_int
 
 def main():

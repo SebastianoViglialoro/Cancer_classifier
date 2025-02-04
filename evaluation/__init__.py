@@ -1,2 +1,3 @@
-from .metrics_evaluation_model import ModelEvaluation
+from .metrics_evaluation_model import ModelEvaluationMetrics
+from .model_evalutation import Validation
 from .visualization import plot_confusion_matrix, plot_auc
