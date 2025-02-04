@@ -20,22 +20,33 @@ def plot_confusion_matrix(y_true, y_pred):
     plt.colorbar()
     plt.show()
 
-def plot_auc(y_true, y_pred):
-    #Genera e visualizza la curva ROC e calcola l'AUC.
-    try:
-        fpr = np.sum((y_true == 2) & (y_pred == 4)) / np.sum(y_true == 2) #False Negative Rate
-        tpr = np.sum((y_true == 4) & (y_pred == 4)) / np.sum(y_true == 4) #False Positive Rate
-        auc_score = (1 + tpr - fpr) / 2
-        
-        plt.figure()
-        plt.plot([0, 1], [0, 1], linestyle='--', label='Random') #Modello casuale. Se il nostro di avvicina alla linea tratteggiata non è un buon modello
-        plt.plot([0, 1], [0, auc_score], marker='o', label=f'AUC = {auc_score:.2f}')
-        
-        plt.xlabel("FPR")
-        plt.ylabel("TPR")
-        plt.title("Curva ROC-AUC")
-        plt.legend()
-        plt.show()
+def plot_auc(y_true, y_scores):
+    """
+    Genera e visualizza la curva ROC-AUC basata su punteggi probabilistici.
+    """
+    # Ordinamento delle coppie (y_scores, y_true) per FPR e TPR
+    thresholds = np.sort(y_scores)[::-1]  # Ordinamento decrescente
+    fpr_values = []
+    tpr_values = []
     
-    except ValueError:
-        print("AUC non calcolabile per una sola classe.")
+    for threshold in thresholds:
+        y_pred_thresh = (y_scores >= threshold).astype(int)  # Classifica in base alla soglia
+        fpr = np.sum((y_true == 0) & (y_pred_thresh == 1)) / np.sum(y_true == 0)
+        tpr = np.sum((y_true == 1) & (y_pred_thresh == 1)) / np.sum(y_true == 1)
+        
+        fpr_values.append(fpr)
+        tpr_values.append(tpr)
+
+    # AUC approssimato con il metodo del trapezio
+    auc_score = np.trapz(tpr_values, fpr_values)
+
+    # Plot della Curva ROC
+    plt.figure()
+    plt.plot([0, 1], [0, 1], linestyle="--", label="Random")  # Linea casuale
+    plt.plot(fpr_values, tpr_values, marker="o", label=f"AUC = {auc_score:.2f}")
+    
+    plt.xlabel("False Positive Rate (FPR)")
+    plt.ylabel("True Positive Rate (TPR)")
+    plt.title("Curva ROC-AUC")
+    plt.legend()
+    plt.show()
