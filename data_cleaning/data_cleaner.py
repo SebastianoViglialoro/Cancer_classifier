@@ -85,10 +85,14 @@ class GestioneValMancanti:
         """
         Funzione per gestire i valori nulli di un DataFrame
         """
+        data = data.apply(pd.to_numeric, errors='coerce')
+
+        data = data.drop(columns=['Sample code number']) # Rimuove la colonna 'Sample code number'
+
         data = RimuoviDuplicati.dup_remove(data)
 
         data = ValoriMancanti.rimuovi_righe_classtype_v1(data)
-
+        
         if mode == "rimozione":
             return ValoriMancanti.rimuovi_righe_con_nan(data)
         elif mode == "media":
