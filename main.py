@@ -1,7 +1,7 @@
 import os 
 import pandas as pd
-from data_cleaning import SelectionFile, GestioneValMancanti, DataCleaner
-from data_cleaning import SelectNormalizer, SaveNormDB
+from data_cleaning import SelectionFile, DataCleaner
+from data_cleaning import Preprocessing
 from models import Modelling
 from evaluation import Validation
 from utils import input_valid_int
@@ -21,27 +21,14 @@ def main():
     cleaned_data = DataCleaner.clean_and_save(data)  # Pulisce i dati e salva il dataset
 
     #Normalizzazione dei dati
-    print("Scegliere come normalizzare i dati attraverso le funzioni sviluppate.")
-    print("Modalità disponibili: ['normalizzazione min-max', 'standardizzazione']")
-    norm_mode = input("Inserisci la modalità di gestione dei valori mancanti che vuoi usare: ").strip().lower()
-
-    if norm_mode not in ['normalizzazione min-max', 'standardizzazione']: #se la modalità non è supportata, termina l'esecuzione
-        print("Modalità non supportata. Verrà utilizzata la modalità di default: normalizzazione min-max")
-        norm_mode = 'normalizzazione min-max'
-    
-    data_scaled = None
-    exclude_col = ['Sample code number','classtype_v1'] #escludiamo le colonna target e la colonna dei campioni(rappresentano l'id del campione)
     try:
-        data_scaled= SelectNormalizer.get_normalizer(norm_mode, cleaned_data, exclude_col)
+        data_scaled = Preprocessing.get_normalizer(cleaned_data, exclude_col=['Sample code number', 'classtype_v1'])
     except Exception as e:
-        print(f"Errore durante la gestione dei valori mancanti: {e}. Procedo con i dati originali.")
-        data_scaled = data
-    
-    print("Dati dopo la normalizzazione:")
-    print(data_scaled.head())
+        print(f"Errore durante la normalizzazione: {e}. Uso i dati puliti senza normalizzazione.")
+        data_scaled = cleaned_data
 
-    #Salvataggio del dataset normalizzato nella cartella data/normalized
-    SaveNormDB.save_dataset(data_scaled)
+    # 4: Salvataggio del dataset normalizzato
+    data_scaled = Preprocessing.save_dataset(data_scaled)
 
     #Separazione feature (X) e target (y)
     X = data_scaled.drop(columns=['classtype_v1']).values  # Feature
