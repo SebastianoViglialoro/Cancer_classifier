@@ -27,12 +27,11 @@ def main():
         print(f"Errore durante la normalizzazione: {e}. Uso i dati puliti senza normalizzazione.")
         data_scaled = cleaned_data
 
-    # 4: Salvataggio del dataset normalizzato
+    #Salvataggio del dataset normalizzato
     data_scaled = Preprocessing.save_dataset(data_scaled)
 
     #Separazione feature (X) e target (y)
-    X = data_scaled.drop(columns=['classtype_v1']).values  # Feature
-    y = data_scaled['classtype_v1'].values   # Etichette
+    X, y = Preprocessing.split_features_target(data_scaled, target_col='classtype_v1')
 
     #Scelta del numero di vicini k
     k = input_valid_int("Inserisci il numero di vicini (k) per il classificatore k-NN: ", min_value=1)
