@@ -1,4 +1,3 @@
-# import pandas as pd
 from data_cleaning import SelectionFile, DataCleaner
 from data_cleaning import Preprocessing
 from models import Modelling
