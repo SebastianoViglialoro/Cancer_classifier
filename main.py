@@ -1,10 +1,10 @@
-import os 
-import pandas as pd
+# import pandas as pd
 from data_cleaning import SelectionFile, DataCleaner
 from data_cleaning import Preprocessing
 from models import Modelling
 from evaluation import Validation
 from utils import get_valid_int
+
 def main():
     #Input dell'utente per l'import del file
     data = SelectionFile.import_data()
