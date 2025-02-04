@@ -44,8 +44,8 @@ class ModelEvaluationMetrics:
 
         # Calcolo manuale dell'AUC (Area Under Curve)
         try:
-            fpr = np.sum((y_true == 0) & (y_pred == 1)) / np.sum(y_true == 0)
-            tpr = np.sum((y_true == 1) & (y_pred == 1)) / np.sum(y_true == 1)
+            fpr = np.sum((y_true == 2) & (y_pred == 4)) / np.sum(y_true == 2)
+            tpr = np.sum((y_true == 4) & (y_pred == 4)) / np.sum(y_true == 4)
             auc = (1 + tpr - fpr) / 2
         except ValueError as e:
             raise ValueError("Errore: Impossibile calcolare AUC. Verificare i dati di input.") from e
