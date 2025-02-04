@@ -60,11 +60,8 @@ def main():
     validator = Validation(model=model_m, X=X, y=y, num_folds=num_folds)
 
     #Esecuzione della validazione K-Fold e salvataggio risultati
-    results_df = validator.k_fold_cross_validation()
-    results_df.to_csv("results/k-fold/k_fold_results.csv", index=False)
-    print("\nRisultati della validazione K-Fold salvati in results/k-fold/k_fold_results.csv")
-
-
+    validator.k_fold_cross_validation()
+    
 
 if __name__ == "__main__":
     main()
