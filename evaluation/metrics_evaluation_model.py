@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 
 # Questa classe si occupa della valutazione di un modello di classificazione.
 # Include metriche di valutazione, validazione incrociata e strumenti di analisi visiva.
