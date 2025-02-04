@@ -1,3 +1,3 @@
 from .file_importer import SelectionFile #importa la classe che gestisce l'import del file
 from .data_cleaner import GestioneValMancanti, SaveDB, DataCleaner #importa la classe che gestisce i valori mancanti e il salvataggio del dataset pulito
-from .data_normalizer import SelectNormalizer, SaveNormDB #importa la classe che gestisce la normalizzazione dei dati e il salvataggio del dataset normalizzato
+from .data_normalizer import Preprocessing #importa la classe che gestisce la normalizzazione dei dati e il salvataggio del dataset normalizzato
