@@ -130,3 +130,5 @@ class DataCleaner:
         # Salvataggio del dataset pulito
         SaveDB.save_dataset(data)
         print("Dataset pulito salvato correttamente in 'data/cleaned'.")
+
+        return data
