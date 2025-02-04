@@ -4,8 +4,7 @@ from data_cleaning import SelectionFile, DataCleaner
 from data_cleaning import Preprocessing
 from models import Modelling
 from evaluation import Validation
-from utils import input_valid_int
-
+from utils import get_valid_int
 def main():
     #Input dell'utente per l'import del file
     data = SelectionFile.import_data()
@@ -34,16 +33,16 @@ def main():
     X, y = Preprocessing.split_features_target(data_scaled, target_col='classtype_v1')
 
     #Scelta del numero di vicini k
-    k = input_valid_int("Inserisci il numero di vicini (k) per il classificatore k-NN: ", min_value=1)
+    k = get_valid_int("Inserisci il numero di vicini (k) per il classificatore k-NN: ", min_value=1)
 
     #Creazione del modello k-NN tramite Modelling
     model_m = Modelling(model_type="knn", k=k)
 
     #Scelta del numero di folds per K-Fold Cross Validation
-    num_folds = input_valid_int("Inserisci il numero di folds per la K-Fold cross validation: ", min_value=2)
+    num_folds = get_valid_int("Inserisci il numero di folds per la K-Fold cross validation: ", min_value=2)
 
     #Creazione dell'istanza di Validation
-    validator = Validation(model=model_m, X=X, y=y, num_folds=num_folds)
+    validator = Validation(classifier=model_m, X=X, y=y, num_folds=num_folds)
 
     #Esecuzione della validazione K-Fold e salvataggio risultati
     validator.k_fold_cross_validation()
