@@ -63,8 +63,12 @@ class Preprocessing:
 
         if method not in ['normalizzazione min-max', 'standardizzazione']:
             print("Modalità non supportata. Verrà utilizzata la modalità di default: normalizzazione min-max.")
+            try:
+                raise ValueError(f"Modalità '{method}' non supportata. Usa 'normalizzazione min-max' o 'standardizzazione'.")
+            except ValueError as e:
+                print(e)  # Mostra l'errore, ma continua
             method = 'normalizzazione min-max'
-        
+
         return method
 
     @staticmethod
