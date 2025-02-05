@@ -36,10 +36,20 @@ class KNNClassifier:
         self.y_train = np.array(y)
     
     def predict(self, X_test):
-        #Effettua una previsione su un insieme di test. Utilizza il metodo privato _predict_single() in modo iterativo
+        """
+        Effettua previsioni su un insieme di test.
+        Restituisce sia le classi predette che i punteggi di probabilità.
+        """
         X_test = np.array(X_test)
-        predictions = [self._predict_single(x) for x in X_test]
-        return np.array(predictions)
+        predictions = []
+        probabilities = []
+
+        for x in X_test:
+            pred, prob = self._predict_single(x)
+            predictions.append(pred)
+            probabilities.append(prob)
+
+        return np.array(predictions), np.array(probabilities)
     
     def _predict_single(self, x):
         # Calcola la distanza euclidea tra x e tutti i punti del training set
@@ -51,13 +61,10 @@ class KNNClassifier:
         # Ottiene le etichette dei k vicini
         k_nearest_labels = self.y_train[k_indices]
         
-        # Determina la classe più frequente tra i vicini
-        most_common = Counter(k_nearest_labels).most_common(2)
-        
-        # Se c'è un pareggio, sceglie casualmente tra le classi più frequenti
-        if len(most_common) > 1 and most_common[0][1] == most_common[1][1]:
-            prediction = random.choice([most_common[0][0], most_common[1][0]])
-        else:
-            prediction = most_common[0][0]
-        
-        return prediction
+        # Calcoliamo la frazione di vicini appartenenti alla classe "4" (maligno)
+        positive_fraction = np.sum(k_nearest_labels == 4) / self.k
+
+        # Se la frazione è ≥ 0.5, prevediamo "4" (maligno), altrimenti "2" (benigno)
+        predicted_class = 4 if positive_fraction >= 0.5 else 2
+
+        return predicted_class, positive_fraction

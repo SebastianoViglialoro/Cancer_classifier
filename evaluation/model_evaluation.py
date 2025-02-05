@@ -37,6 +37,7 @@ class Validation:
         results = []
         all_y_true = []
         all_y_pred = []
+        all_y_scores = []  # Ora memorizziamo le probabilità invece delle classi
 
         for i in range(self.num_folds):
             start = i * fold_size + min(i, remainder)  # Inizio del fold di test
@@ -47,7 +48,7 @@ class Validation:
             y_train = np.concatenate((self.y[:start], self.y[end:]))  
 
             self.classifier.train(X_train, y_train)  # Addestramento del modello
-            y_pred = self.classifier.predict(X_test)  # Predizione sui dati di test
+            y_pred, y_scores = self.classifier.predict(X_test)  # Ora restituiamo anche le probabilità
 
             # Calcolo delle metriche (ora usiamo il metodo statico)
             metrics = ModelEvaluationMetrics.evaluate(y_test, y_pred)
@@ -55,14 +56,18 @@ class Validation:
             results.append(metrics)
 
             # Salvataggio delle predizioni per i grafici
-            all_y_true.extend(y_test)
             all_y_pred.extend(y_pred)
+            all_y_true.extend(y_test)
+            y_true_binary = np.where(np.array(all_y_true) == 4, 1, 0)
+            all_y_scores.extend(y_scores)  # Usiamo le probabilità per la ROC-AUC
 
         results_df = pd.DataFrame(results)
 
-        # Generazione dei grafici dopo tutti i folds
-        plot_confusion_matrix(np.array(all_y_true), np.array(all_y_pred))
-        plot_auc(np.array(all_y_true), np.array(all_y_pred))
+        #Cacolo matrice di confusione
+        plot_confusion_matrix(np.array(all_y_true), np.array(all_y_pred))  #Usa classi discrete
+
+        # Calcolo della ROC-AUC basata sulle probabilità
+        plot_auc(np.array(y_true_binary), np.array(all_y_scores))  # ROC-AUC basata sulle probabilità
 
         # Salvataggio dei risultati
         if self.save_results:
