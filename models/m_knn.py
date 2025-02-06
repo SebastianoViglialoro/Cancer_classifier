@@ -12,26 +12,26 @@ class Classifier(ABC):
     
     @abstractmethod
     def fit(self, X, y):
-        #Metodo per addestrare il modello.
+        # Metodo per addestrare il modello.
         pass
     
     @abstractmethod
     def predict(self, X_test):
-        #Metodo per fare previsioni.
+        # Metodo per fare previsioni.
         pass
 
 class KNNClassifier:
 
-    #Implementazione del classificatore k-NN (k-Nearest Neighbors) da zero.
+    # Implementazione del classificatore k-NN (k-Nearest Neighbors) da zero.
     
     def __init__(self, k=3):
-        #Inizializza il modello con il numero di vicini k.
+        # Inizializza il modello con il numero di vicini k.
         self.k = k
         self.X_train = None
         self.y_train = None
     
     def fit(self, X, y):
-        #Memorizza i dati di training.
+        # Memorizza i dati di training.
         self.X_train = np.array(X)
         self.y_train = np.array(y)
     
@@ -52,6 +52,7 @@ class KNNClassifier:
         return np.array(predictions), np.array(probabilities)
     
     def _predict_single(self, x):
+
         # Calcola la distanza euclidea tra x e tutti i punti del training set
         distances = np.linalg.norm(self.X_train-x, axis=1) #QUI DA UN ERORRE PERCHè NON HA ANCORA I DATI PROCESSATI
         

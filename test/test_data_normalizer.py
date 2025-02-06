@@ -27,7 +27,7 @@ class TestPreprocessing(unittest.TestCase):
             if column not in self.exclude_col:
                 self.assertTrue(all(norm_db[column] >= 0) and all(norm_db[column] <= 1))
         
-        #verifico il risultato atteso per una colonna
+        # Verifico il risultato atteso per una colonna
         expected = (self.data['A'] - self.data['A'].min()) / (self.data['A'].max() - self.data['A'].min())
         pd.testing.assert_series_equal(norm_db['A'], expected)
 

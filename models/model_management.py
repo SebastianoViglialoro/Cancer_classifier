@@ -2,8 +2,8 @@ import numpy as np
 from models.m_knn import KNNClassifier
 
 class Modelling:
-    #Classe che gestisce la creazione, l'addestramento e la predizione di modelli di machine learning.
-    #Permette di astrarre il processo di training e inferenza dal tipo di modello specifico.
+    # Classe che gestisce la creazione, l'addestramento e la predizione di modelli di machine learning.
+    # Permette di astrarre il processo di training e inferenza dal tipo di modello specifico.
 
     def __init__(self, model_type="knn", k=3):
       
