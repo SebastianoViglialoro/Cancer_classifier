@@ -9,7 +9,7 @@ class Fileimporter(ABC):
     def importer(self, file_path: str) -> pd.DataFrame:
         pass
     
-#CSV ---
+#CSV
 class FileCSV(Fileimporter):
     """
     Questa classe implementa l'import per File CSV
@@ -19,7 +19,7 @@ class FileCSV(Fileimporter):
         df = pd.read_csv(file_path)
         return df 
 
-#EXCEL --- 
+#EXCEL
 class FileExcel(Fileimporter):
     """
     Questa classe implementa l'import per File Excel
@@ -29,7 +29,7 @@ class FileExcel(Fileimporter):
         df = pd.read_excel(file_path)
         return df 
 
-#TSV --- 
+#TSV
 class FileTSV(Fileimporter):
     """
     Questa classe implementa l'import per File TSV
@@ -39,7 +39,7 @@ class FileTSV(Fileimporter):
         df = pd.read_csv(file_path)
         return df 
     
-#TXT --- 
+#TXT
 class FileTXT(Fileimporter):
     """
     Questa classe implementa l'import per File TXT
@@ -49,7 +49,7 @@ class FileTXT(Fileimporter):
         df = pd.read_csv(file_path)
         return df 
 
-#JSON ---
+#JSON
 class FileJSON(Fileimporter):
     """
     Questa classe implementa l'import per File JSON

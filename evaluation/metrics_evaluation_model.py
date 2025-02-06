@@ -50,10 +50,10 @@ class ModelEvaluationMetrics:
             raise ValueError("Errore: Impossibile calcolare AUC. Verificare i dati di input.") from e
 
         return {
-            "accuracy": accuracy,
-            "error_rate": error_rate,
-            "sensitivity": sensitivity,
-            "specificity": specificity,
-            "geometric_mean": geometric_mean,
-            "auc": auc
+            "Accuracy": accuracy,
+            "Error_rate": error_rate,
+            "Sensitivity": sensitivity,
+            "Specificity": specificity,
+            "Geometric_mean": geometric_mean,
+            "Auc": auc
         }
