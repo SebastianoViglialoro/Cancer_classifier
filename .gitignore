@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 .DS_Store
 result/
+result/validation_result.csv
