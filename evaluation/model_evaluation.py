@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from models import Modelling
 from evaluation.metrics_evaluation_model import ModelEvaluationMetrics
 from evaluation.visualization import plot_auc, plot_confusion_matrix
 
@@ -9,7 +8,7 @@ class Validation:
     
     #Classe che gestisce la validazione di un modello utilizzando K-Fold Cross Validation.
     
-    def __init__(self, classifier, X, y, num_folds=5, save_results=True):
+    def __init__(self, classifier, X, y, num_folds=5, save_results=True, selected_metrics=None):
         
         #Inizializza la validazione.
 
@@ -24,6 +23,7 @@ class Validation:
         self.y = np.array(y)
         self.num_folds = num_folds
         self.save_results = save_results
+        self.selected_metrics = selected_metrics
 
     def k_fold_cross_validation(self):
         
@@ -50,7 +50,7 @@ class Validation:
             y_pred, y_scores = self.classifier.predict(X_test)  #Ora restituiamo anche le probabilità
 
             #Calcolo delle metriche
-            metrics = ModelEvaluationMetrics.evaluate(y_test, y_pred)
+            metrics = ModelEvaluationMetrics.evaluate(y_test, y_pred, self.selected_metrics)
             metrics["fold"] = i + 1
             results.append(metrics)
 

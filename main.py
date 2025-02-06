@@ -3,6 +3,7 @@ from data_cleaning import Preprocessing
 from models import Modelling
 from evaluation import Validation
 from utils import get_valid_int
+from utils import select_metrics
 
 def main():
     #Input dell'utente per l'import del file
@@ -40,8 +41,11 @@ def main():
     #Scelta del numero di folds per K-Fold Cross Validation
     num_folds = get_valid_int("Inserisci il numero di folds per la K-Fold cross validation: ", min_value=2)
 
+    # Selezione delle metriche di valutazione
+    selected_metrics = select_metrics()
+
     #Creazione dell'istanza di Validation
-    validator = Validation(classifier=model_m, X=X, y=y, num_folds=num_folds)
+    validator = Validation(classifier=model_m, X=X, y=y, num_folds=num_folds, selected_metrics=selected_metrics)
 
     #Esecuzione della validazione K-Fold e salvataggio risultati
     validator.k_fold_cross_validation()
