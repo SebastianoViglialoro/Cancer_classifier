@@ -18,15 +18,16 @@ class ModelEvaluationMetrics:
 
         accuracy = np.mean(y_true == y_pred) #Calcolo accuratezza modello
         error_rate = 1 - accuracy
-        sensitivities, specificities, g_means = [], [], []
-        auc = None
+        sensitivities, specificities, g_means = [], [], [] #Liste per le metriche per ogni classe
+        auc = None   #Inizializzazione della variabile per l'area sotto la curva (AUC)
+
 
         # Calcola metriche per ogni classe nel dataset:
         for class_label in np.unique(y_true):
-            tp = sum((y_true == class_label) & (y_pred == class_label))
-            fn = sum((y_true == class_label) & (y_pred != class_label))
-            tn = sum((y_true != class_label) & (y_pred != class_label))
-            fp = sum((y_true != class_label) & (y_pred == class_label))
+            tp = sum((y_true == class_label) & (y_pred == class_label)) #True positive
+            fn = sum((y_true == class_label) & (y_pred != class_label)) #False negative
+            tn = sum((y_true != class_label) & (y_pred != class_label)) #True negative
+            fp = sum((y_true != class_label) & (y_pred == class_label)) #False positive
             
             sens = tp / (tp + fn) if (tp + fn) > 0 else 0
             spec = tn / (tn + fp) if (tn + fp) > 0 else 0
@@ -43,8 +44,8 @@ class ModelEvaluationMetrics:
 
         # Calcolo manuale dell'AUC (Area Under Curve)
         try:
-            fpr = np.sum((y_true == 2) & (y_pred == 4)) / np.sum(y_true == 2)
-            tpr = np.sum((y_true == 4) & (y_pred == 4)) / np.sum(y_true == 4)
+            fpr = np.sum((y_true == 2) & (y_pred == 4)) / np.sum(y_true == 2) #False positive rate
+            tpr = np.sum((y_true == 4) & (y_pred == 4)) / np.sum(y_true == 4) #True positive rate
             auc = (1 + tpr - fpr) / 2
         except ValueError as e:
             raise ValueError("Errore: Impossibile calcolare AUC. Verificare i dati di input.") from e

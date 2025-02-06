@@ -1,15 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Modulo di Visualizzazione (Confusion Matrix & ROC Curve)
+#Modulo di Visualizzazione (Confusion Matrix & ROC Curve)
 def plot_confusion_matrix(y_true, y_pred):
-    cm = np.zeros((2, 2), dtype=int) # Matrice 2x2 con rispettivamente i valori di: TN, FP, FN, TP
-    cm[0, 0] = np.sum((y_true == 2) & (y_pred == 2))  # TN
-    cm[0, 1] = np.sum((y_true == 2) & (y_pred == 4))  # FP
-    cm[1, 0] = np.sum((y_true == 4) & (y_pred == 2))  # FN
-    cm[1, 1] = np.sum((y_true == 4) & (y_pred == 4))  # TP
 
-    # Visualizzazione matrice di confusione
+    #Genera e visualizza la matrice di confusione.
+    
+    #:param y_true: Valori reali delle classi.
+    #:param y_pred: Valori predetti dal modello.
+
+    cm = np.zeros((2, 2), dtype=int) #Matrice 2x2 con rispettivamente i valori di: TN, FP, FN, TP
+    cm[0, 0] = np.sum((y_true == 2) & (y_pred == 2))  #TN
+    cm[0, 1] = np.sum((y_true == 2) & (y_pred == 4))  #FP
+    cm[1, 0] = np.sum((y_true == 4) & (y_pred == 2))  #FN
+    cm[1, 1] = np.sum((y_true == 4) & (y_pred == 4))  #TP
+
+    #Visualizzazione matrice di confusione
     plt.matshow(cm, cmap=plt.cm.Blues)
     for (i, j), val in np.ndenumerate(cm):
         plt.text(j, i, f"{val}", ha='center', va='center', color='black')
@@ -27,11 +33,15 @@ def plot_confusion_matrix(y_true, y_pred):
     plt.close() #Chiude la figura per evitare sovrapposizioni
 
 def plot_auc(y_true, y_scores):
-    """
-    Genera e visualizza la curva ROC-AUC basata su punteggi probabilistici.
-    """
+
+    #Genera e visualizza la curva ROC-AUC basata su punteggi probabilistici.
+    
+    #:param y_true: Etichette reali binarie (0, 1).
+    #:param y_scores: Probabilità di previsione per la classe positiva.
+    #Ordinamento delle coppie (y_scores, y_true) per FPR e TPR
+    
     # Ordinamento delle coppie (y_scores, y_true) per FPR e TPR
-    thresholds = np.sort(y_scores)[::-1]  # Ordinamento decrescente
+    thresholds = np.sort(y_scores)[::-1]  #Ordinamento decrescente
     fpr_values = []
     tpr_values = []
     
