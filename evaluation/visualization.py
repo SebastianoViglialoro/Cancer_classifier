@@ -18,7 +18,13 @@ def plot_confusion_matrix(y_true, y_pred):
     plt.ylabel("Reale")
     plt.title("Matrice di Confusione")
     plt.colorbar()
-    plt.show()
+
+    plt.savefig("result/confusion_matrix.png") #Salve l'immagine in /result
+
+
+    plt.show() #Mostra la matrice di confusione
+
+    plt.close() #Chiude la figura per evitare sovrapposizioni
 
 def plot_auc(y_true, y_scores):
     """
@@ -49,4 +55,8 @@ def plot_auc(y_true, y_scores):
     plt.ylabel("True Positive Rate (TPR)")
     plt.title("Curva ROC-AUC")
     plt.legend()
-    plt.show()
+    plt.savefig("result/roc_auc_curve.png") #Salve l'immagine in /result
+
+    plt.show() #Mostra la matrice di confusione
+
+    plt.close() #Chiude la figura per evitare sovrapposizioni
