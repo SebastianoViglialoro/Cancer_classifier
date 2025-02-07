@@ -2,5 +2,3 @@ FIA/
 __pycache__/
 *.pyc
 .DS_Store
-result/
-result/validation_results.csv
