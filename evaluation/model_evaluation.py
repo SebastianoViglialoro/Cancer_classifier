@@ -60,6 +60,14 @@ class Validation:
             y_true_binary = np.where(np.array(all_y_true) == 4, 1, 0) #Conversione per la ROC-AUC
             all_y_scores.extend(y_scores)  #Usiamo le probabilità per la ROC-AUC
 
+
+        # Calcolo della media delle metriche senza la prima riga
+        mean_metrics = {key: np.mean([d[key] for d in results[0:]]) for key in results[0] if key != "fold"}
+
+        # Aggiunta della media al dizionario finale
+        mean_metrics["fold"] = "Mean"  # Etichetta per indicare che è la media
+        results.append(mean_metrics)
+    
         results_df = pd.DataFrame(results)
 
         #Cacolo matrice di confusione
